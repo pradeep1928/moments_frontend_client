@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { AppBar, Avatar, Button, Toolbar, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -18,11 +18,11 @@ export const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
   // logout function
-  const logout = () => {
+  const logout = useCallback(() => {
     dispatch({ type: "LOGOUT" });
     navigate("/auth");
     setUser(null);
-  };
+  }, [dispatch, navigate]);
 
   // using useEffect to set the user as soon as login
   useEffect(() => {
@@ -38,7 +38,7 @@ export const Navbar = () => {
     }
 
     setUser(JSON.parse(localStorage.getItem("profile")));
-  }, [location]);
+  }, [location, logout, user?.token]);
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
