@@ -3,7 +3,6 @@ import { Container } from "@material-ui/core";
 import {
   BrowserRouter as Router,
   Route,
-  Redirect,
   Routes,
 } from "react-router-dom";
 
